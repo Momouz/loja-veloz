@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: pagamentos
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: pagamentos
+
+  template:
+    metadata:
+      labels:
+        app: pagamentos
+
+    spec:
+      containers:
+      - name: pagamentos
+
+        image: pagamentos:latest
+
+        ports:
+        - containerPort: 8083
+
+        livenessProbe:
+          tcpSocket:
+            port: 8083
+
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          tcpSocket:
+            port: 8083
+
+          initialDelaySeconds: 5
+          periodSeconds: 5

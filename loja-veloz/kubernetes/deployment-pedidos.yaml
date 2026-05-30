@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: pedidos
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: pedidos
+
+  template:
+    metadata:
+      labels:
+        app: pedidos
+
+    spec:
+      containers:
+      - name: pedidos
+
+        image: pedidos:latest
+
+        ports:
+        - containerPort: 8081
+
+        envFrom:
+        - configMapRef:
+            name: app-config
+
+        - secretRef:
+            name: db-secret
+
+        livenessProbe:
+          tcpSocket:
+            port: 8081
+
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          tcpSocket:
+            port: 8081
+
+          initialDelaySeconds: 5
+          periodSeconds: 5

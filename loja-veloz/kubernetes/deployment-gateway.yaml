@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: gateway
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: gateway
+
+  template:
+    metadata:
+      labels:
+        app: gateway
+
+    spec:
+      containers:
+      - name: gateway
+
+        image: gateway:latest
+
+        ports:
+        - containerPort: 8080
+
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+
+          initialDelaySeconds: 5
+          periodSeconds: 5

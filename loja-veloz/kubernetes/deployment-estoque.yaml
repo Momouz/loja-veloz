@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: estoque
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: estoque
+
+  template:
+    metadata:
+      labels:
+        app: estoque
+
+    spec:
+      containers:
+      - name: estoque
+
+        image: estoque:latest
+
+        ports:
+        - containerPort: 8082
+
+        livenessProbe:
+          tcpSocket:
+            port: 8082
+
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          tcpSocket:
+            port: 8082
+
+          initialDelaySeconds: 5
+          periodSeconds: 5
