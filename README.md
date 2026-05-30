@@ -92,3 +92,7 @@ Utilização de HPA (Horizontal Pod Autoscaler):
 
 Terraform utilizado para provisionamento de infraestrutura Kubernetes.
 
+## Video pitch
+
+https://youtu.be/CDGcrSBz7dA
+
